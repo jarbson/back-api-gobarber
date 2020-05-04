@@ -1,13 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-// Migration para criar tabela de Appointments
-
-export default class CreatAppointments1587941264876
-  implements MigrationInterface {
+export default class CreateUsers1588210778742 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'appointments',
+        name: 'users',
         columns: [
           {
             name: 'id',
@@ -17,12 +14,17 @@ export default class CreatAppointments1587941264876
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'provider',
+            name: 'name',
             type: 'varchar',
           },
           {
-            name: 'date',
-            type: 'timestamp with time zone',
+            name: 'email',
+            type: 'varchar',
+            isUnique: true,
+          },
+          {
+            name: 'password',
+            type: 'varchar',
           },
           {
             name: 'created_at',
@@ -39,8 +41,7 @@ export default class CreatAppointments1587941264876
     );
   }
 
-  // Metodo para desfazer a criação da tabela Appointmests (Deletar)
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('appointments');
+    await queryRunner.dropTable('users');
   }
 }
